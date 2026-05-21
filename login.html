@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Login</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Mengatur posisi dan latar belakang */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #e99a34 0%, #e0be8b 100%);
+        }
+
+        /* Container utama form login */
+        .login-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Judul form */
+        .login-card h2 {
+            margin-bottom: 30px;
+            color: #333333;
+        }
+
+        /* Area input */
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #eba43b;
+        }
+
+        /* Tombol Login */
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #e79e3d;
+            color: rgb(255, 255, 255);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-login:hover {
+            background-color: #e29d42;
+        }
+
+        /* Tautan tambahan (Lupa password, Daftar) */
+        .extra-links {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .extra-links a {
+            color: #d18d3f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .extra-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>Selamat Datang</h2>
+        <form action="#" method="POST">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan password Anda" required>
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+        <div class="extra-links">
+            <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah form melakukan submit default 
+
+            // Mengambil data input dari user
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Mengambil data akun yang terdaftar dari localStorage
+            const savedData = localStorage.getItem('registeredUser');
+
+            if (savedData) {
+                const user = JSON.parse(savedData);
+
+                // Validasi kecocokan dengan data registrasi browser
+                if (email === user.email && password === user.password) {
+                    alert(`Login Berhasil! Selamat datang kembali, ${user.username}.`);
+                    
+                    // Mengarahkan langsung ke halaman daftar paket/booking
+                    window.location.href = 'booking.html'; 
+                } else {
+                    alert('Email atau Password salah. Silakan coba lagi.');
+                }
+            } else {
+                // Cadangan validasi statis jika dicoba tanpa registrasi terlebih dahulu
+                const emailValid = "user@example.com";
+                const passwordValid = "password123";
+
+                if (email === emailValid && password === passwordValid) {
+                    alert('Login Berhasil! Anda akan dialihkan.');
+                    window.location.href = 'booking.html'; 
+                } else {
+                    alert('Akun belum terdaftar atau data salah. Silakan registrasi dahulu.');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

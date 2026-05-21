@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riwayat Pemesanan - Wisata Joglo</title>
+
+<style>
+    /* --- Reset & Base--- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        height: 100%;
+    }
+
+    /* Menggunakan Flexbox pada body untuk memaksa footer tetap di bawah */
+    body {
+        background-color: #f4f6f9;
+        color: #333;
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        flex-grow: 1; /* Membuat area utama mengambil sisa ruang yang kosong */
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 35px;
+        color: #222;
+        font-size: 1.8rem;
+    }
+
+    /* --- Header Styles --- */
+    header {
+        background-color: #f89940;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 40px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        object-fit: cover;
+    }
+
+    .web-name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    nav a.nav-link {
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 600;
+        transition: color 0.3s;
+    }
+
+    nav a.nav-link:hover {
+        color: #000000;
+    }
+
+    .btn-logout {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-logout:hover {
+        background-color: #ffffff;
+        color: #d35400;
+        border-color: #ffffff;
+    }
+
+    .profile-area {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+
+    /* --- Grid Riwayat Pemesanan (2 Baris x 2 Kolom) --- */
+    .history-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+
+    .history-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #eef2f5;
+        transition: transform 0.3s ease;
+    }
+
+    .history-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .card-header {
+        background-color: #ffd698;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-header h3 {
+        font-size: 1.15rem;
+        color: #000000;
+    }
+
+    .status-badge {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .status-badge.success {
+        background-color: #27ae60;
+        color: white;
+    }
+
+    .status-badge.pending {
+        background-color: #e67e22;
+        color: white;
+    }
+
+    .card-body {
+        padding: 20px;
+        display: flex;
+        gap: 15px;
+        flex-grow: 1;
+    }
+
+    .card-body img {
+        width: 120px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .info-details {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 0.95rem;
+    }
+
+    .info-details p {
+        color: #555;
+    }
+
+    .info-details strong {
+        color: #222;
+    }
+
+    /* --- Footer --- */
+    footer {
+        background-color: #ffdeac;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+        margin-top: auto; /* Memastikan footer menempel di bawah jika konten sedikit */
+        width: 100%;
+    }
+
+    /* --- Responsif Layar Smartphone --- */
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        nav {
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .history-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .card-body {
+            flex-direction: column;
+        }
+
+        .card-body img {
+            width: 100%;
+            height: 140px;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="wisata/logo.jpg" class="logo-img" alt="Logo">
+            <span id="webName" class="web-name">Joglo</span>
+        </div>
+        
+        <nav>
+            <a href="booking.html" class="nav-link">Halaman Utama</a>
+            <a href="#" id="logoutBtn" class="btn-logout">Logout</a>
+            <div class="profile-area"></div>
+        </nav>
+    </header>
+
+    <main class="container" id="riwayat">
+        <h2>Riwayat Pemesanan Anda</h2>
+        
+        <div class="history-grid" id="historyGridBox">
+            <div class="history-card">
+                <div class="card-header">
+                    <h3>Paket Wisata Lombok</h3>
+                    <span class="status-badge success">Selesai</span>
+                </div>
+                <div class="card-body">
+                    <img src="wisata/Paket-Wisata-Lombok.jpg" alt="Lombok">
+                    <div class="info-details">
+                        <p><strong>Destinasi:</strong> Desa Sade, Pantai Kuta, Tanjung Aan</p>
+                        <p><strong>Tgl Pemesanan:</strong> 12 Mei 2026</p>
+                        <p><strong>Tgl Keberangkatan:</strong> 20 Juni 2026</p>
+                        <p><strong>Jumlah:</strong> 1 Orang</p>
+                        <p><strong>Total Bayar:</strong> Rp 2.000.000</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-card">
+                <div class="card-header">
+                    <h3>Paket Wisata Jogja Keluarga</h3>
+                    <span class="status-badge success">Selesai</span>
+                </div>
+                <div class="card-body">
+                    <img src="wisata/Paket-Wisata-Jogja.jpg" alt="Jogja">
+                    <div class="info-details">
+                        <p><strong>Destinasi:</strong> Malioboro, Borobudur, Parangtritis</p>
+                        <p><strong>Tgl Pemesanan:</strong> 05 April 2026</p>
+                        <p><strong>Tgl Keberangkatan:</strong> 15 Mei 2026</p>
+                        <p><strong>Jumlah:</strong> 1 Orang</p>
+                        <p><strong>Total Bayar:</strong> Rp 3.000.000</p>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Paket Wisata Bayu. SMK Dinamika Pembangunan 2 Jakarta.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const logoutButton = document.getElementById("logoutBtn");
+            const webNameSpan = document.getElementById("webName");
+            const historyGridBox = document.getElementById("historyGridBox");
+
+            // 1. TAMPILKAN NAMA PENGGUNA
+            const localData = localStorage.getItem("registeredUser");
+            if (localData) {
+                const user = JSON.parse(localData);
+                webNameSpan.textContent = `Halo, ${user.username}`;
+            } else {
+                webNameSpan.textContent = "Joglo";
+            }
+
+            // 2. LOGIKA MEMBACA ARRAY SELURUH DATA BOOKING (Supaya Tidak Saling Menimpa)
+            const bookingDataString = localStorage.getItem("allBookings");
+
+            if (bookingDataString) {
+                // Parsing data string menjadi Array kumpulan object booking
+                const daftarBooking = JSON.parse(bookingDataString);
+
+                // Lakukan perulangan untuk menampilkan setiap data booking menjadi kartu riwayat baru
+                daftarBooking.forEach((booking) => {
+                    
+                    // Mengatur tanggal hari ini untuk komparasi status
+                    const hariIni = new Date();
+                    hariIni.setHours(0,0,0,0);
+
+                    // Memproses tanggal keberangkatan dari data pesanan
+                    const tglBerangkatRaw = new Date(booking.tanggalKeberangkatan);
+                    const tglBerangkatFormatted = tglBerangkatRaw.getDate() + " " + tglBerangkatRaw.toLocaleString('id-ID', { month: 'long' }) + " " + tglBerangkatRaw.getFullYear();
+                    tglBerangkatRaw.setHours(0,0,0,0);
+
+                    // Penentuan Otomatisasi Status Aktif / Selesai
+                    let statusTeks = "Aktif";
+                    let statusKelas = "pending";
+
+                    if (tglBerangkatRaw < hariIni) {
+                        statusTeks = "Selesai";
+                        statusKelas = "success";
+                    }
+
+                    // Sinkronisasi Gambar dan Teks Destinasi secara otomatis berdasarkan nama paket
+                    let gambarPaket = "wisata/logo.jpg";
+                    let destinasiTeks = "-";
+                    const namaPaketLower = booking.namaPaket.toLowerCase();
+
+                    if(namaPaketLower.includes("lombok")) {
+                        gambarPaket = "wisata/Paket-Wisata-Lombok.jpg";
+                        destinasiTeks = "Desa Sade, Pantai Kuta, Tanjung Aan";
+                    } else if(namaPaketLower.includes("jogja")) {
+                        gambarPaket = "wisata/Paket-Wisata-Jogja.jpg";
+                        destinasiTeks = "Malioboro, Candi Borobudur, Pantai Parangtritis";
+                    } else if(namaPaketLower.includes("bromo")) {
+                        gambarPaket = "wisata/Paket-Wisata-Bromo.jpg";
+                        destinasiTeks = "Penanjakan Bromo, Kawah Bromo, Pasir Berbisik";
+                    } else if(namaPaketLower.includes("bali")) {
+                        gambarPaket = "wisata/Paket-Wisata-Bali.jpg";
+                        destinasiTeks = "Tanah Lot, Pantai Kuta, Bedugul, Uluwatu";
+                    }
+
+                    // Membuat elemen kartu baru (.history-card)
+                    const cardBaru = document.createElement("div");
+                    cardBaru.className = "history-card";
+                    cardBaru.innerHTML = `
+                        <div class="card-header">
+                            <h3>${booking.namaPaket}</h3>
+                            <span class="status-badge ${statusKelas}">${statusTeks}</span>
+                        </div>
+                        <div class="card-body">
+                            <img src="${gambarPaket}" alt="Destinasi">
+                            <div class="info-details">
+                                <p><strong>Destinasi:</strong> ${destinasiTeks}</p>
+                                <p><strong>Tgl Pemesanan:</strong> ${booking.tanggalPemesanan}</p>
+                                <p><strong>Tgl Keberangkatan:</strong> ${tglBerangkatFormatted}</p>
+                                <p><strong>Jumlah:</strong> ${booking.jumlahPeserta} Orang</p>
+                                <p><strong>Total Bayar:</strong> ${booking.totalBayar}</p>
+                            </div>
+                        </div>
+                    `;
+
+                    // Masukkan kartu baru ke dalam box grid riwayat secara berurutan
+                    historyGridBox.appendChild(cardBaru);
+                });
+            }
+
+            // HANDLER LOGOUT
+            logoutButton.addEventListener("click", (e) => {
+                e.preventDefault();
+                const konfirmasi = confirm("Apakah Anda yakin ingin keluar dari akun?");
+                if (konfirmasi) {
+                    window.location.href = "login.html"; 
+                }
+            });
+        });
+    </script>
+</body>
+</html>

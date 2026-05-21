@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Registrasi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #db8b21 0%, #eecc8d 100%);
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #eca829;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #e78c15;
+            border: none;
+            border-radius: 5px;
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #eca53b;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #d18d3f;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Daftar Akun</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="username">Nama Pengguna</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan username Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan email Anda" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Buat password Anda" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <div class="login-link">
+            <p>Sudah punya akun? <a href="login.html">Masuk di sini</a></p>
+        </div>
+    </div>
+
+
+<script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            // Mencegah form melakukan submit default (reload halaman)
+            e.preventDefault(); 
+
+            // Mengambil nilai input dari form registrasi
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Membuat objek user untuk disimpan
+            const userData = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            // Menyimpan data ke localStorage dengan nama kunci 'registeredUser'
+            // Menggunakan JSON.stringify karena localStorage hanya menerima tipe data string
+            localStorage.setItem('registeredUser', JSON.stringify(userData));
+
+            // Memberikan notifikasi sukses kepada user
+            alert('Registrasi Berhasil! Anda akan dialihkan ke halaman login.');
+
+            // Mengarahkan langsung ke halaman login (pastikan nama filenya sesuai, misal: login.html)
+            window.location.href = 'login.html';
+        });
+    </script>
+
+</body>
+</html>
+

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paket Wisata Joglo</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        background-color: #f4f6f8;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #222;
+    }
+
+    /* Header Styles */
+    header {
+        background-color: #f89940;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logo-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    .web-name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    nav {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #555;
+        font-weight: 500;
+        transition: color 0.3s;
+    }
+
+    nav a:hover {
+        color: #ffe9ba;
+    }
+
+    .btn-login {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        border: 1px solid #ffffff;
+        padding: 6px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background-color: #ffffff;
+        color: #d35400;
+        border-color: #ffffff;
+    }
+
+    /* Banner */
+    .hero-banner-container {
+        width: 100%;
+        overflow: hidden;
+        background-color: #f89940;
+    }
+
+    .hero-banner-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        aspect-ratio: 21 / 7; 
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Daftar Item */
+    .list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    .list-item {
+        border-radius: 12px;
+        padding: 24px;
+        background-color: #ffffff;
+        display: flex;
+        gap: 24px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        align-items: center;
+        position: relative; 
+        border-left: 5px solid #f89940;
+    }
+
+    .list-item img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .list-text {
+        flex-grow: 1;
+        padding-right: 160px; 
+    }
+
+    .list-text h3 {
+        margin-bottom: 8px;
+        color: #111;
+    }
+
+    .list-text strong {
+        color: #e67e22;
+    }
+
+    .btn-booking {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        background-color: #ffb14b;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-booking:hover {
+        background-color: #ff9900;
+    }
+
+    /* --- FORMULIR BOOKING --- */
+    .booking-section {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 40px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .form-group select,
+    .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-group select:focus,
+    .form-group input:focus {
+        border-color: #f89940;
+    }
+
+    .price-display {
+        background-color: #fff9f1;
+        border: 1px dashed #f89940;
+        padding: 15px;
+        border-radius: 6px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #d35400;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .btn-submit-booking {
+        width: 100%;
+        background-color: #f89940;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+    .btn-submit-booking:hover {
+        background-color: #d35400;
+    }
+
+    /* Kontak Kami */
+     .contact-section {
+        background: linear-gradient(135deg, #ffad41 0%, #f39c12 100%);
+        margin-top: 50px;
+        padding: 20px 0;
+    }
+
+    .contact-section h2 {
+        color: #ffffff;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+        margin-bottom: 40px;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .contact-info {
+        background: #ffffff;
+        padding: 30px 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Efek interaktif saat diarahkan kursor */
+    .contact-info:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .contact-icon {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    .contact-info strong {
+        display: block;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    .contact-info p {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+        flex-grow: 1;
+    }
+
+    /* Tombol Aksi Cepat di Setiap Kartu */
+    .btn-contact-action {
+        display: inline-block;
+        background-color: #f39c12;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 8px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+        transition: background 0.3s;
+        border: none;
+        width: 80%;
+    }
+
+    .btn-contact-action:hover {
+        background-color: #d35400;
+    }
+
+    /* Footer */
+    footer {
+        background-color: #ffdeac;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .hero-banner-container img {
+            aspect-ratio: 16 / 9; 
+        }
+
+        .list-item {
+            flex-direction: column;
+            text-align: center;
+            padding-bottom: 70px; 
+            border-left: none;
+            border-top: 5px solid #f89940;
+        }
+
+        .list-item img {
+            width: 100%;
+            height: 150px;
+        }
+
+        .list-text {
+            padding-right: 0;
+        }
+
+        .btn-booking {
+            bottom: 15px;
+            right: 50%;
+            transform: translateX(50%); 
+            width: 80%;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <img src="wisata/logo.jpg" class="logo-img" alt="Logo">
+            <span id="webName" class="web-name">Joglo</span>
+        </div>
+
+        <nav>
+            <a href="#list">Daftar Paket</a>
+            <a href="#bookingFormSection">Form Booking</a>
+            <a href="#contact">Kontak Kami</a>
+            <button id="loginBtn" class="btn-login">Profile / Riwayat</button>
+        </nav>
+    </header>
+
+    <div class="hero-banner-container">
+        <img src="wisata/header.png" alt="Banner Wisata">
+    </div>
+
+    <main id="list" class="container">
+        <h2>Daftar Paket</h2>
+        
+        <div class="list-container">
+            <div class="list-item">
+                <img src="wisata/Paket-Wisata-Lombok.jpg" alt="Lombok">
+                <div class="list-text">
+                    <h3>Paket Wisata Lombok</h3>
+                    <p><strong>Harga:</strong> Rp 2.000.000 / orang</p>
+                    <p><strong>Destinasi:</strong> Desa Sade, Pantai Kuta Lombok, Pantai Tanjung Aan</p>
+                    <p><strong>Fasilitas:</strong> Hotel, Sarapan, Transportasi, Tempat Piknik</p>
+                </div>
+                <a href="#bookingFormSection" onclick="pilihPaket('lombok')" class="btn-booking">Pesan Paket</a>
+            </div>
+
+            <div class="list-item">
+                <img src="wisata/Paket-Wisata-Jogja.jpg" alt="Jogja">
+                <div class="list-text">
+                    <h3>Paket Wisata Jogja Keluarga 2H1M</h3>
+                    <p><strong>Harga:</strong> Rp 3.000.000 / orang</p>
+                    <p><strong>Destinasi:</strong> Malioboro, Candi Borobudur, Pantai Parangtritis</p>
+                    <p><strong>Fasilitas:</strong> Hotel, Sarapan, Transportasi, Tiket Masuk</p>
+                </div>
+                <a href="#bookingFormSection" onclick="pilihPaket('jogja')" class="btn-booking">Pesan Paket</a>
+            </div>
+
+            <div class="list-item">
+                <img src="wisata/Paket-Wisata-Bromo.jpg" alt="Bromo">
+                <div class="list-text">
+                    <h3>Paket Wisata Bromo Malang 2H1M</h3>
+                    <p><strong>Harga:</strong> Rp 4.000.000 / orang</p>
+                    <p><strong>Destinasi:</strong> Penanjakan Bromo, Kawah Bromo, Pasir Berbisik</p>
+                    <p><strong>Fasilitas:</strong> Jeep Bromo, Hotel, Sarapan, Tiket Masuk</p>
+                </div>
+                <a href="#bookingFormSection" onclick="pilihPaket('bromo')" class="btn-booking">Pesan Paket</a>
+            </div>
+
+            <div class="list-item">
+                <img src="wisata/Paket-Wisata-Bali.jpg" alt="Bali">
+                <div class="list-text">
+                    <h3>Paket Wisata Bali Hemat 3H2M</h3>
+                    <p><strong>Harga:</strong> Rp 5.000.000 / orang</p>
+                    <p><strong>Destinasi:</strong> Tanah Lot, Pantai Kuta, Bedugul, Uluwatu</p>
+                    <p><strong>Fasilitas:</strong> Hotel, Sarapan, Transportasi, Tour Guide</p>
+                </div>
+                <a href="#bookingFormSection" onclick="pilihPaket('bali')" class="btn-booking">Pesan Paket</a>
+            </div>
+        </div>
+
+        <section id="bookingFormSection" class="booking-section">
+            <h2 style="margin-bottom: 20px; text-align: left;">Formulir Pemesanan Tiket</h2>
+            <form id="orderForm">
+                
+                <div class="form-group">
+                    <label for="paketWisata">Pilih Paket Wisata</label>
+                    <select id="paketWisata" required>
+                        <option value="" disabled selected>-- Pilih Tujuan Destinasi --</option>
+                        <option value="lombok">Paket Wisata Lombok - Rp 2.000.000 / org</option>
+                        <option value="jogja">Paket Wisata Jogja Keluarga - Rp 3.000.000 / org</option>
+                        <option value="bromo">Paket Wisata Bromo Malang - Rp 4.000.000 / org</option>
+                        <option value="bali">Paket Wisata Bali Hemat - Rp 5.000.000 / org</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggalKeberangkatan">Tanggal Keberangkatan</label>
+                    <input type="date" id="tanggalKeberangkatan" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="jumlahOrang">Jumlah Peserta (Orang)</label>
+                    <input type="number" id="jumlahOrang" min="1" value="1" required>
+                </div>
+
+                <div class="price-display">
+                    Total Pembayaran: <span id="totalHarga">Rp 0</span>
+                </div>
+
+                <button type="submit" class="btn-submit-booking">Konfirmasi Pemesanan</button>
+            </form>
+        </section>
+    </main>
+
+     <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Kontak Kami</h2>
+            <div class="contact-grid">
+                
+                <div class="contact-info">
+                    <div class="contact-icon">📞</div>
+                    <strong>No. Telp / WhatsApp</strong>
+                    <p>+62 852-8571-5564<br><small>Hubungi kami kapan saja</small></p>
+                    <a href="https://wa.me/6285285715564" target="_blank" class="btn-contact-action">Hubungi Lewat WA</a>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-icon">✉️</div>
+                    <strong>Email Resmi</strong>
+                    <p>info@bayussrzkynto.com<br><small>Respon maksimal 24 jam kerja</small></p>
+                    <a href="mailto:info@namaweb.com" class="btn-contact-action">Kirim Email</a>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-icon">📍</div>
+                    <strong>Lokasi Kantor</strong>
+                    <p>JL.Kp Pedaengan No.99, Kec Cakung, Kota Jakarta Timur</p>
+                    <a href="https://maps.google.com/?q=JL.Kp+Pedaengan+No.99+Cakung+Jakarta+Timur" target="_blank" class="btn-contact-action">Buka Google Maps</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Paket Wisata Bayu. SMK Dinamika Pembangunan 2 Jakarta.</p>
+    </footer>
+
+    <script>
+        // Data Harga Paket Dasar per Orang
+        const daftarHarga = {
+            lombok: 2000000,
+            jogja: 3000000,
+            bromo: 4000000,
+            bali: 5000000
+        };
+
+        const paketSelect = document.getElementById("paketWisata");
+        const jumlahInput = document.getElementById("jumlahOrang");
+        const totalHargaSpan = document.getElementById("totalHarga");
+        const orderForm = document.getElementById("orderForm");
+
+        // Fungsi ketika tombol "Pesan Paket" di atas diklik, form otomatis terisi
+        function pilihPaket(namaPaket) {
+            paketSelect.value = namaPaket;
+            hitungTotal();
+        }
+
+        // Fungsi menghitung harga otomatis (Harga x Jumlah Orang)
+        function hitungTotal() {
+            const paketTerpilih = paketSelect.value;
+            const jumlahOrang = parseInt(jumlahInput.value) || 0;
+
+            if (paketTerpilih && jumlahOrang > 0) {
+                const hargaPerOrang = daftarHarga[paketTerpilih];
+                const totalBiaya = hargaPerOrang * jumlahOrang;
+                
+                // Menampilkan format mata uang Rupiah yang rapi
+                totalHargaSpan.textContent = "Rp " + totalBiaya.toLocaleString('id-ID');
+            } else {
+                totalHargaSpan.textContent = "Rp 0";
+            }
+        }
+
+        // Event Listener memantau perubahan input form untuk update harga real-time
+        paketSelect.addEventListener("change", hitungTotal);
+        jumlahInput.addEventListener("input", hitungTotal);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginButton = document.getElementById("loginBtn");
+            const webNameSpan = document.getElementById("webName");
+
+            const localData = localStorage.getItem("registeredUser"); 
+
+            if (localData) {
+                const user = JSON.parse(localData);
+                webNameSpan.textContent = `Halo, ${user.username}`;
+            } else {
+                webNameSpan.textContent = "Joglo"; 
+            }
+
+            if (loginButton) {
+                loginButton.addEventListener("click", () => {
+                    window.location.href = "riwayat.html"; 
+                });
+            }
+
+            // --- PROSES SIMPAN BANYAK DATA BOOKING (ARRAY) KE LOCALSTORAGE ---
+            orderForm.addEventListener("submit", (e) => {
+                e.preventDefault(); 
+
+                const paket = paketSelect.value;
+                const tanggal = document.getElementById("tanggalKeberangkatan").value;
+                const jumlah = jumlahInput.value;
+                const total = totalHargaSpan.textContent;
+
+                // Mengatur format tanggal transaksi pemesanan hari ini langsung dari system
+                const hariIni = new Date();
+                const tglPesanFormatted = hariIni.getDate() + " " + hariIni.toLocaleString('id-ID', { month: 'long' }) + " " + hariIni.getFullYear();
+
+                const dataBookingBaru = {
+                    namaPaket: paketSelect.options[paketSelect.selectedIndex].text.split(" - ")[0],
+                    tanggalPemesanan: tglPesanFormatted,
+                    tanggalKeberangkatan: tanggal,
+                    jumlahPeserta: jumlah,
+                    totalBayar: total
+                };
+
+                // Ambil daftar array booking lama dari localstorage (jika ada), jika belum ada set jadi array kosong []
+                let seluruhPemesanan = JSON.parse(localStorage.getItem("allBookings")) || [];
+                
+                // Tambahkan pesanan baru ke dalam array daftar (tanpa menghapus data yang sudah ada)
+                seluruhPemesanan.push(dataBookingBaru);
+
+                // Masukkan kembali array kumpulan data yang terbaru ke localStorage
+                localStorage.setItem("allBookings", JSON.stringify(seluruhPemesanan));
+
+                alert("Booking Berhasil! Pesanan Anda telah ditambahkan ke riwayat.");
+                window.location.href = "riwayat.html"; 
+            });
+        });
+    </script>
+</body>
+</html>
